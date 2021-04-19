@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock-Weather-Calandar</title>
+    <script src="main.js" defer></script>
+    <!-- <script src="weather.js" defer></script> -->
+    <!-- <script src="calandar.js" defer></script> -->
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top">
+        Today is <span class="date"></span> <span class="month"></span> <span class="year"></span>
+    </div>
+    <div class="bottom">
+        <div class="clock">
+            <div class="analog">
+                <div class="analog__hour"></div>
+                <div class="analog__minute"></div>
+                <div class="analog__second"></div>
+            </div>
+            <div class="digital">
+                <span class="digital__clock">10:15:15</span> 
+                <button class="PMor24Btn">PM</button>
+            </div>
+        </div>
+        <div class="calandar"></div>
+        <div class="weather"></div>
+    </div>
+</body>
+</html>
