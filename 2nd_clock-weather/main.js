@@ -28,6 +28,8 @@ const analogHour = document.querySelector('.analog__hour');
 const analogMinute = document.querySelector('.analog__minute');
 const analogSecond = document.querySelector('.analog__second');
 
+const calandarMonth = document.querySelector('.calandar__month');
+
 const dateContainer = document.querySelectorAll('.dateContainer');
 let firstDay;
 const API_KEY = "f280970da513f11db619fb89747584e2";
@@ -118,13 +120,13 @@ function drawWeather(weather) {
     drawIcon(weather.id);
   }
   
-  const getWeatherData = async (lat, lon) => {
+  async function getWeatherData(lat, lon) {
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     );
     const weatherData = await data.json();
     const ABS_ZERO = 273.15; // 이 API에서는 온도에 절대영도를 사용함
-    console.log(weatherData);
+    // console.log(weatherData);
     const weather = {
       temp: (weatherData.main.temp - ABS_ZERO).toFixed(2),
       tempFeel: (weatherData.main.feels_like - ABS_ZERO).toFixed(2),
@@ -133,7 +135,7 @@ function drawWeather(weather) {
       hum: weatherData.main.humidity,
       main: weatherData.weather[0].main,
       wind: weatherData.wind.speed,
-      id: weatherData.weather[0].id, // 나중에 아이콘 사용하기 위한 용도
+      id: weatherData.weather[0].id, // for skycons
       rain: weatherData.rain ? weatherData.rain["1h"] : null, // 비가 올 때만 데이터가 들어있음
       icon: weatherData.weather[0].icon, // API에서 제공하는 아이콘 번호를 가져옵니다
     };
@@ -147,7 +149,7 @@ function drawWeather(weather) {
   
   const handleSuccess = (position) => {
     const { latitude, longitude } = position.coords;
-    console.log(latitude, longitude);
+    // console.log(latitude, longitude);
     getWeatherData(latitude, longitude);
   };
   
@@ -191,11 +193,12 @@ function callBack() {
     minute = addZero(now.getMinutes());
     second = addZero(now.getSeconds());
 
-    // calandar
-    dateSpan.innerText = `${date}`;
-    monthSpan.innerText =  `${MONTH_NAME[month]},`;
-    yearSpan.innerText = `${year}`;
+    // Top
+    dateSpan.innerText = date;
+    monthSpan.innerText =  MONTH_NAME[month];
+    yearSpan.innerText = year;
 
+    // Bottom
     workAnalogClock()
     workDigitalClock()
     onCalandar()
@@ -203,6 +206,8 @@ function callBack() {
 }
 
 function onCalandar() {
+    calandarMonth.innerText = MONTH_NAME[month];
+
     let firstDate = new Date(now.setDate(now.getDate()-now.getDate()+1))
     firstDay = firstDate.getDay();
     
