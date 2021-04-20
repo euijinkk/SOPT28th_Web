@@ -34,13 +34,19 @@ callBack();
 setInterval(callBack, 1000);
 
 PMor24HBtn.addEventListener(('click'), (event) => {
-    PMor24H = event.target.innerText;
+    // PMor24H = event.target.innerText;
     if (PMor24H === "PM"){
         event.target.innerText = "24H"
         digitalClock.innerText= `${hour} : ${minute} : ${second}`;    
         return;
     } else {
-        digitalClock.innerText = (hour > 12 ? `${hour-12} : ${minute} : ${second}` : `${hour} : ${minute} : ${second}`);
+        if (hour > 12) {
+            digitalClock.innerText = `${hour-12} : ${minute} : ${second}`;
+        } else if (hour > 0 ){
+            digitalClock.innerText = `${hour} : ${minute} : ${second}`
+        } else {
+            digitalClock.innerText = `12 : ${minute} : ${second}`
+        }
         event.target.innerText = "PM";
     }
 })
@@ -67,7 +73,7 @@ function callBack() {
     month = now.getMonth();
     date = now.getDate();
     day = now.getDay();
-    hour = now.getHours();
+    hour = addZero(now.getHours());
     minute = addZero(now.getMinutes());
     second = addZero(now.getSeconds());
 
@@ -76,15 +82,29 @@ function callBack() {
     monthSpan.innerText =  `${MONTH_NAME[month]},`;
     yearSpan.innerText = `${year}`;
 
+    const hourToSecond = parseInt(hour)*3600+parseInt(minute)*60+parseInt(second)
+    const minuteToSecond = parseInt(minute)*60+parseInt(second)
+    
+    analogHour.style.webkitTransform = `rotate(${360*hourToSecond/43200}deg)`; 
+    analogHour.style.mozTransform    = `rotate(${360*hourToSecond/43200}deg)`;
+    analogHour.style.msTransform     = `rotate(${360*hourToSecond/43200}deg)`;
+    analogHour.style.oTransform      = `rotate(${360*hourToSecond/43200}deg)`;
+    analogHour.style.transform       = `rotate(${360*hourToSecond/43200}deg)`;
 
-    // analog - clock
-    // console
-    // analogHour.style.tranform=`rotate(${360*12/43200}deg)`;
-    // analogMinute.style.tranform=`rotate(${360*37/3600}deg)`;
-    // analogSecond.style.tranform=`rotate(${360*40/60}deg)`;
-    analogHour.style.tranform="rotate(120deg)";
+    analogMinute.style.webkitTransform = `rotate(${360*minuteToSecond/3600}deg)`; 
+    analogMinute.style.mozTransform    = `rotate(${360*minuteToSecond/3600}deg)`;
+    analogMinute.style.msTransform     = `rotate(${360*minuteToSecond/3600}deg)`;
+    analogMinute.style.oTransform      = `rotate(${360*minuteToSecond/3600}deg)`;
+    analogMinute.style.transform       = `rotate(${360*minuteToSecond/3600}deg)`;
 
-    console.log(analogHour.style);
+    analogSecond.style.mozTransform    = `rotate(${360*second/60}deg)`;
+    analogSecond.style.webkitTransform = `rotate(${360*second/60}deg)`; 
+    analogSecond.style.msTransform     = `rotate(${360*second/60}deg)`;
+    analogSecond.style.oTransform      = `rotate(${360*second/60}deg)`;
+    analogSecond.style.transform       = `rotate(${360*second/60}deg)`;
+
+    // console.log(360*hourToSecond/43200);
+    // console.log(analogHour.style);
 
     // digital - clock
     PMor24H = PMor24HBtn.innerText;
