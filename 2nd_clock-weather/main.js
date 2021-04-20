@@ -29,6 +29,8 @@ const analogMinute = document.querySelector('.analog__minute');
 const analogSecond = document.querySelector('.analog__second');
 
 const calandarMonth = document.querySelector('.calandar__month');
+const calandarYear = document.querySelector('.calandar__year');
+
 
 const dateContainer = document.querySelectorAll('.dateContainer');
 let firstDay;
@@ -201,14 +203,52 @@ function callBack() {
     // Bottom
     workAnalogClock()
     workDigitalClock()
-    onCalandar()
+    
 
 }
 
-function onCalandar() {
-    calandarMonth.innerText = MONTH_NAME[month];
+const beforeMonthBtn = document.querySelector('.beforeMonth');
+const afterMonthBtn = document.querySelector('.afterMonth');
 
-    let firstDate = new Date(now.setDate(now.getDate()-now.getDate()+1))
+
+let tempNow = now;
+let tempMonth = month;
+let tempYear = year;
+
+let redDate;
+
+
+// let beforMonth = 
+onCalandar(month, year);
+
+
+beforeMonthBtn.addEventListener('click', () => {
+    tempNow = new Date(tempNow.setMonth(tempMonth-1));
+    tempMonth = tempNow.getMonth();
+    tempYear = tempNow.getFullYear();
+    Array.from(dateContainer, date => date.innerText = "");
+    // NodeList에 map을 적용하는 방법 
+    // dateContainer.map(date => data.innerText = "");
+    onCalandar(tempMonth, tempYear);
+})
+
+afterMonthBtn.addEventListener('click', () => {
+    tempNow = new Date(tempNow.setMonth(tempMonth+1));
+    tempMonth = tempNow.getMonth();
+    tempYear = tempNow.getFullYear();
+    Array.from(dateContainer, date => date.innerText = "");
+    // NodeList에 map을 적용하는 방법 
+    // dateContainer.map(date => data.innerText = "");
+    onCalandar(tempMonth, tempYear);
+})
+function makeTodayRed () {
+    dateContainer[firstDay+date-1].style.color = "red";
+}
+function onCalandar(month, year) {
+    calandarMonth.innerText = MONTH_NAME[month];
+    calandarYear.innerText = `, ${year}`;
+
+    let firstDate = new Date(tempNow.setDate(tempNow.getDate()-tempNow.getDate()+1))
     firstDay = firstDate.getDay();
     
     // 말일 
@@ -237,13 +277,19 @@ function onCalandar() {
     for (let i=1; i<=lastDate; i++) {
         dateContainer[firstDay+i-1].innerText = i;
     }
-    makeTodayRed()
+
+    console.log(`month: ${now.getMonth()}`);
+    console.log(`tempMonth: ${tempMonth}`);
+    if (now.getMonth() === month && now.getFullYear() === year) {
+        // makeTodayRed ()
+        redDate = firstDay+date-1;
+        dateContainer[redDate].style.color = "red";
+    } else {
+        dateContainer[redDate].style.color = "white";
+    }
 }
 
-function makeTodayRed () {
-    dateContainer[firstDay+date-1].style.color = "red";
-    
-}
+
 
 function workDigitalClock() {
     PMor24H = PMor24HBtn.innerText;

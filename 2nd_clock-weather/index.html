@@ -9,6 +9,7 @@
     <!-- <script src="weather.js" defer></script> -->
     <!-- <script src="calandar.js" defer></script> -->
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -29,7 +30,12 @@
                 </div>
             </div>
             <div class="calandar">
-                <div class="calandar__month">Month</div>
+                <div class="monthContainer">
+                    <Button class="beforeMonth"><i class="fas fa-chevron-left"></i></Button>&nbsp;&nbsp;&nbsp;
+                    <span class="calandar__month"></span>
+                    <span class="calandar__year">, 2021</span>&nbsp;&nbsp;&nbsp;
+                    <Button class="afterMonth"><i class="fas fa-chevron-right"></i></Button>
+                </div>
                 <div class="calandar__day">
                     <div>S</div>
                     <div>M</div>
