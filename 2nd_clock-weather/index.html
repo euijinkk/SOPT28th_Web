@@ -8,7 +8,7 @@
     <script src="main.js" defer></script>
     <!-- <script src="weather.js" defer></script> -->
     <!-- <script src="calandar.js" defer></script> -->
-    
+    <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,95 +16,98 @@
         Today is <span class="date"></span> <span class="month"></span> <span class="year"></span>
     </div>
     <div class="bottom">
-        <div class="clock">
-            <div class="analog">
-                <div class="analog__hour"></div>
-                <div class="analog__minute"></div>
-                <div class="analog__second"></div>
+        <div class="clockAndCalandar">
+            <div class="clock">
+                <div class="analog">
+                    <div class="analog__hour"></div>
+                    <div class="analog__minute"></div>
+                    <div class="analog__second"></div>
+                </div>
+                <div class="digital">
+                    <span class="digital__clock"></span> 
+                    <button class="PMor24Btn">PM</button>
+                </div>
             </div>
-            <div class="digital">
-                <span class="digital__clock"></span> 
-                <button class="PMor24Btn">PM</button>
+            <div class="calandar">
+                <div class="calandar__month">Month</div>
+                <div class="calandar__day">
+                    <div>S</div>
+                    <div>M</div>
+                    <div>T</div>
+                    <div>W</div>
+                    <div>T</div>
+                    <div>F</div>
+                    <div>S</div>
+                </div>
+                <div class="calandar__date">
+                    <div class="weekContainer">
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                    </div>
+                    <div class="weekContainer">
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                    </div>
+                    <div class="weekContainer">
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                    </div>
+                    <div class="weekContainer">
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                    </div>
+                    <div class="weekContainer">
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                    </div>
+                    <div class="weekContainer">
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                        <div class="dateContainer"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="calandar">
-            <div class="calandar__month">Month</div>
-            <div class="calandar__day">
-                <div>S</div>
-                <div>M</div>
-                <div>T</div>
-                <div>W</div>
-                <div>T</div>
-                <div>F</div>
-                <div>S</div>
-            </div>
-            <div class="calandar__date">
-                <div class="weekContainer">
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                </div>
-                <div class="weekContainer">
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                </div>
-                <div class="weekContainer">
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                </div>
-                <div class="weekContainer">
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                </div>
-                <div class="weekContainer">
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                </div>
-                <div class="weekContainer">
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                    <div class="dateContainer"></div>
-                </div>
-            </div>
-        </div>
+        
         <div class="weather">
             <div class="weather_top">
-                <div class="weather_icon"></div>
+                <canvas id="weather_icon"></canvas>
                 <div class="weather_top_right">
                     <div class="weather_temperature"></div>
                     <div class="weather_main"></div>
                 </div>
             </div>
             <div class="weather_bottom">
-              <div class="weather_temps"></div>
+              <!-- <div class="weather_temps"></div> -->
               <div class="weather_others"></div>
             </div>
           </div>

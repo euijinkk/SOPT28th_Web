@@ -34,13 +34,18 @@ body {
   justify-content: space-between;
 }
 
+.clockAndCalandar {
+  display: flex;
+  flex-basis: 50%;
+}
+
 /* clock */
 .clock {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  flex-basis: 25%;
+  flex-basis: 50%;
 }
 
 .analog {
@@ -118,7 +123,7 @@ body {
   display: block;
   /* display: flex;
   flex-direction: column; */
-  flex-basis: 25%;
+  flex-basis: 50%;
   border: 1px solid white;
   /* margin: 0px 20px; */
 }
@@ -163,85 +168,78 @@ body {
 .weather {
   flex-basis: 50%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   /* margin-left: 100px; */
+  /* margin-right: 6px; */
 }
 
 .weather_top {
   display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  margin-left: 50px;
 }
-.weather_icon {
-  flex-basis: 35%;
-  text-align: center;
-  padding-left: 50px;
-}
-
-.weather_icon > img {
-  width: 240px;
-  height: 240px;
+#weather_icon {
+  flex-basis: 50%;
+  text-align: right;
+  /* padding-left: 50px; */
 }
 
+#weather_icon {
+  margin-bottom: 30px;
+}
 .weather_top_right {
   text-align: center;
-  flex-basis: 65%;
+  flex-basis: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-size: 32px;
   color: white;
+  margin-left: 30px;
 }
 
 .weather_bottom {
+  flex-basis: 50%;
   color: white;
   font-size: 20px;
+  width: 100%;
+  text-align: left;
 }
 
-.weather_temps {
+/* .weather_temps {
   text-align: center;
-}
+} */
 
 .weather_others {
-  text-align: center;
+  /* text-align: center; */
+  /* line-height: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  height: 100%;
+  justify-content: space-between;
 }
 
 .weather_bottom span {
   color: lightgray;
 }
 
-/* 
-.weather_top {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-}
+@media screen and (max-width: 1000px) {
+  .bottom {
+    flex-direction: column;
+  }
 
-.weather_top_right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: left;
-  height: 180px;
-  margin-left: 10px;
-  margin-bottom: 20px;
-}
+  .calandar {
+    margin-right: 50px;
+  }
 
-.weather_temperature {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
+  .weather {
+    margin: 100px 0px;
+  }
 
-.weather_main {
-  font-size: 32px;
-  text-align: bottom;
+  .weather_bottom {
+    text-align: center;
+  }
 }
-
-.weather_others > span {
-  color: lightgray;
-}
-
-.weather_icon > img {
-  width: 180px;
-  height: 180px;
-} */

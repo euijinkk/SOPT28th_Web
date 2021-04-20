@@ -34,9 +34,9 @@ const API_KEY = "f280970da513f11db619fb89747584e2";
 
 const weatherTemperature = document.querySelector(".weather_temperature");
 const weatherMain = document.querySelector(".weather_main");
-const weatherTemps = document.querySelector(".weather_temps");
+// const weatherTemps = document.querySelector(".weather_temps");
 const weatherOthers = document.querySelector(".weather_others");
-const weatherIcon = document.querySelector('.weather_icon');
+// const weatherIcon = document.querySelector('.weather_icon');
 callBack();
 
 setInterval(callBack, 1000);
@@ -45,22 +45,77 @@ PMor24HBtn.addEventListener(('click'), () => {
     onPMor24BtnClick()
 })
 
+function drawIcon(id) {
+    const skycons = new Skycons({ color: "white", resizeClear: true });
+    skycons.add("weather_icon", Skycons.CLOUDY);
+  
+    const code = parseInt(id / 100); // id 번호에 따라 날씨가 분류됨
+    const hour = new Date().getHours();
+  
+    switch (code) {
+      case 2:
+        skycons.set("weather_icon", Skycons.WIND);
+        break;
+      case 3:
+      case 5:
+        skycons.set("weather_icon", Skycons.RAIN);
+        break;
+      case 6:
+        skycons.set("weather_icon", Skycons.SNOW);
+        break;
+      case 7:
+        skycons.set("weather_icon", Skycons.FOG);
+        break;
+      case 8:
+        switch (id) {
+          case 800:
+            if (hour >= 6 && hour <= 17)
+              skycons.set("weather_icon", Skycons.CLEAR_DAY);
+            else skycons.set("weather_icon", Skycons.CLEAR_NIGHT);
+            break;
+          case 801:
+          case 802:
+            if (hour >= 6 && hour <= 17)
+              skycons.set("weather_icon", Skycons.PARTLY_CLOUDY_DAY);
+            else skycons.set("weather_icon", Skycons.PARTLY_CLOUDY_NIGHT);
+            break;
+          case 803:
+          case 804:
+            skycons.set("weather_icon", Skycons.CLOUDY);
+            break;
+        }
+        break;
+      default:
+        skycons.set("weather_icon", Skycons.SLEET);
+        break;
+    }
+    skycons.play();
+  };
 
 function drawWeather(weather) {
     weatherTemperature.innerHTML = `${weather.temp} °C`;
     weatherMain.innerHTML = `${weather.main}`;
-    weatherTemps.innerHTML = `<span>Feels:</span> ${weather.tempFeel} °C &nbsp;&nbsp;
-      <span>Min:</span> ${weather.tempMin} °C &nbsp;&nbsp;
-      <span>Max:</span> ${weather.tempMax} °C`;
-    weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="icon" />`;
+    // weatherTemps.innerHTML = `<span>Feels:</span> ${weather.tempFeel} °C &nbsp;&nbsp;
+    //   <span>Min:</span> ${weather.tempMin} °C &nbsp;&nbsp;
+    //   <span>Max:</span> ${weather.tempMax} °C`;
+    // weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="icon" />`;
     if (weather.rain) {
-      weatherOthers.innerHTML = `<span>Humidity:</span> ${weather.hum} % &nbsp;&nbsp;
-      <span>Rain:</span> ${weather.rain} mm/h &nbsp;&nbsp;
-      <span>Wind:</span> ${weather.wind} m/s`;
+      weatherOthers.innerHTML = `
+      <div><span>Feels:</span> ${weather.tempFeel} °C</div>
+      <div><span>Min:</span> ${weather.tempMin} °C</div>
+      <div><span>Max:</span> ${weather.tempMax} °C</div>
+      <div><span>Humidity:</span> ${weather.hum} %</div>
+      <div><span>Rain:</span> ${weather.rain} mm/h</div>
+      <div><span>Wind:</span> ${weather.wind} m/s</div>`;
     } else {
-      weatherOthers.innerHTML = `<span>Humidity:</span> ${weather.hum} % &nbsp;&nbsp;
-      <span>Wind:</span> ${weather.wind} m/s`;
+      weatherOthers.innerHTML = `
+      <div><span>Feels:</span> ${weather.tempFeel} °C </div>
+      <div><span>Min:</span> ${weather.tempMin} °C </div>
+      <div><span>Max:</span> ${weather.tempMax} °C </div>
+      <div><span>Humidity:</span> ${weather.hum} % </div>
+      <div><span>Wind:</span> ${weather.wind} m/s</div>`;
     }
+    drawIcon(weather.id);
   }
   
   const getWeatherData = async (lat, lon) => {
