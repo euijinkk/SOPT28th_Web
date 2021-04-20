@@ -20,18 +20,23 @@ let year = now.getFullYear();
 let month = now.getMonth();
 let date = now.getDate();
 let day = now.getDay();
-let hour = now.getHours();
-let minute = now.getMinutes();
-let second = now.getSeconds();
+let hour = addZero(now.getHours());
+let minute = addZero(now.getMinutes());
+let second = addZero(now.getSeconds());
 
 const analogHour = document.querySelector('.analog__hour');
 const analogMinute = document.querySelector('.analog__minute');
 const analogSecond = document.querySelector('.analog__second');
 
 const dateContainer = document.querySelectorAll('.dateContainer');
-console.log(dateContainer);
 let firstDay;
+const API_KEY = "f280970da513f11db619fb89747584e2";
 
+const weatherTemperature = document.querySelector(".weather_temperature");
+const weatherMain = document.querySelector(".weather_main");
+const weatherTemps = document.querySelector(".weather_temps");
+const weatherOthers = document.querySelector(".weather_others");
+const weatherIcon = document.querySelector('.weather_icon');
 callBack();
 
 setInterval(callBack, 1000);
@@ -39,6 +44,65 @@ setInterval(callBack, 1000);
 PMor24HBtn.addEventListener(('click'), () => {
     onPMor24BtnClick()
 })
+
+
+function drawWeather(weather) {
+    weatherTemperature.innerHTML = `${weather.temp} °C`;
+    weatherMain.innerHTML = `${weather.main}`;
+    weatherTemps.innerHTML = `<span>Feels:</span> ${weather.tempFeel} °C &nbsp;&nbsp;
+      <span>Min:</span> ${weather.tempMin} °C &nbsp;&nbsp;
+      <span>Max:</span> ${weather.tempMax} °C`;
+    weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="icon" />`;
+    if (weather.rain) {
+      weatherOthers.innerHTML = `<span>Humidity:</span> ${weather.hum} % &nbsp;&nbsp;
+      <span>Rain:</span> ${weather.rain} mm/h &nbsp;&nbsp;
+      <span>Wind:</span> ${weather.wind} m/s`;
+    } else {
+      weatherOthers.innerHTML = `<span>Humidity:</span> ${weather.hum} % &nbsp;&nbsp;
+      <span>Wind:</span> ${weather.wind} m/s`;
+    }
+  }
+  
+  const getWeatherData = async (lat, lon) => {
+    const data = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+    );
+    const weatherData = await data.json();
+    const ABS_ZERO = 273.15; // 이 API에서는 온도에 절대영도를 사용함
+    console.log(weatherData);
+    const weather = {
+      temp: (weatherData.main.temp - ABS_ZERO).toFixed(2),
+      tempFeel: (weatherData.main.feels_like - ABS_ZERO).toFixed(2),
+      tempMin: (weatherData.main.temp_min - ABS_ZERO).toFixed(2),
+      tempMax: (weatherData.main.temp_max - ABS_ZERO).toFixed(2),
+      hum: weatherData.main.humidity,
+      main: weatherData.weather[0].main,
+      wind: weatherData.wind.speed,
+      id: weatherData.weather[0].id, // 나중에 아이콘 사용하기 위한 용도
+      rain: weatherData.rain ? weatherData.rain["1h"] : null, // 비가 올 때만 데이터가 들어있음
+      icon: weatherData.weather[0].icon, // API에서 제공하는 아이콘 번호를 가져옵니다
+    };
+  
+    drawWeather(weather);
+  };
+  
+  const handleError = () => {
+    console.log("Failed to get current position");
+  };
+  
+  const handleSuccess = (position) => {
+    const { latitude, longitude } = position.coords;
+    console.log(latitude, longitude);
+    getWeatherData(latitude, longitude);
+  };
+  
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+  };
+  
+  getLocation();
+
+
 
 
 
@@ -49,7 +113,7 @@ function onPMor24BtnClick(){
         return;
     } else {
         if (hour > 12) {
-            digitalClock.innerText = `${hour-12} : ${minute} : ${second}`;
+            digitalClock.innerText = `${addZero(hour-12)} : ${minute} : ${second}`;
         } else if (hour > 0 ){
             digitalClock.innerText = `${hour} : ${minute} : ${second}`
         } else {
@@ -124,9 +188,9 @@ function makeTodayRed () {
 function workDigitalClock() {
     PMor24H = PMor24HBtn.innerText;
     if (PMor24H === "PM"){
-        digitalClock.innerText = (hour > 12 ? `${hour-12} : ${minute} : ${second}` : `${hour} : ${minute} : ${second}`);
+        digitalClock.innerText = (hour > 12 ? `${addZero(hour-12)} : ${minute} : ${second}` : `${hour} : ${minute} : ${second}`);
         if (hour > 12) {
-            digitalClock.innerText = `${hour-12} : ${minute} : ${second}`;
+            digitalClock.innerText = `${addZero(hour-12)} : ${minute} : ${second}`;
         } else if (hour > 0 ){
             digitalClock.innerText = `${hour} : ${minute} : ${second}`
         } else {

@@ -40,7 +40,7 @@ body {
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  flex-basis: 33%;
+  flex-basis: 25%;
 }
 
 .analog {
@@ -115,10 +115,12 @@ body {
 /* calandar */
 
 .calandar {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 33%;
+  display: block;
+  /* display: flex;
+  flex-direction: column; */
+  flex-basis: 25%;
   border: 1px solid white;
+  /* margin: 0px 20px; */
 }
 
 .calandar__month {
@@ -140,8 +142,8 @@ body {
   color: white;
   justify-content: space-between;
 
-  height: 30px;
-  line-height: 30px;
+  height: 35px;
+  line-height: 35px;
   font-size: 20px;
 }
 
@@ -159,5 +161,87 @@ body {
 /* weather */
 
 .weather {
-  flex-basis: 34%;
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  /* margin-left: 100px; */
 }
+
+.weather_top {
+  display: flex;
+}
+.weather_icon {
+  flex-basis: 35%;
+  text-align: center;
+  padding-left: 50px;
+}
+
+.weather_icon > img {
+  width: 240px;
+  height: 240px;
+}
+
+.weather_top_right {
+  text-align: center;
+  flex-basis: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 32px;
+  color: white;
+}
+
+.weather_bottom {
+  color: white;
+  font-size: 20px;
+}
+
+.weather_temps {
+  text-align: center;
+}
+
+.weather_others {
+  text-align: center;
+}
+
+.weather_bottom span {
+  color: lightgray;
+}
+
+/* 
+.weather_top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.weather_top_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  height: 180px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.weather_temperature {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.weather_main {
+  font-size: 32px;
+  text-align: bottom;
+}
+
+.weather_others > span {
+  color: lightgray;
+}
+
+.weather_icon > img {
+  width: 180px;
+  height: 180px;
+} */
