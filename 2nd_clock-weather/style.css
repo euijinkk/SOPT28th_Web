@@ -29,7 +29,9 @@ body {
 }
 /* bottom */
 .bottom {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 /* clock */
@@ -38,6 +40,7 @@ body {
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
+  flex-basis: 33%;
 }
 
 .analog {
@@ -60,6 +63,7 @@ body {
   transform-origin: 100% 100%;
   /* font-weight: bo */
   /* transition: transform-rotate 1000ms linear; */
+  /* rotate만 animation을 주는 방법?? */
 }
 
 .analog__hour {
@@ -106,4 +110,54 @@ body {
 .PMor24Btn:hover {
   background-color: white;
   color: skyblue;
+}
+
+/* calandar */
+
+.calandar {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 33%;
+  border: 1px solid white;
+}
+
+.calandar__month {
+  text-align: center;
+  background-color: white;
+  color: skyblue;
+  height: 40px;
+  line-height: 40px;
+  font-size: 25px;
+}
+
+.calandar__day {
+  border-bottom: 1px solid white;
+}
+
+.calandar__day,
+.weekContainer {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+
+  height: 30px;
+  line-height: 30px;
+  font-size: 20px;
+}
+
+.calandar__day div,
+.weekContainer div {
+  width: 100%;
+  /* color:white; */
+  text-align: center;
+}
+
+.calandar__date {
+  color: white;
+}
+
+/* weather */
+
+.weather {
+  flex-basis: 34%;
 }

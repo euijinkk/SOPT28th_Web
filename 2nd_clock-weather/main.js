@@ -28,15 +28,23 @@ const analogHour = document.querySelector('.analog__hour');
 const analogMinute = document.querySelector('.analog__minute');
 const analogSecond = document.querySelector('.analog__second');
 
+const dateContainer = document.querySelectorAll('.dateContainer');
+console.log(dateContainer);
+let firstDay;
 
 callBack();
 
 setInterval(callBack, 1000);
 
-PMor24HBtn.addEventListener(('click'), (event) => {
-    // PMor24H = event.target.innerText;
+PMor24HBtn.addEventListener(('click'), () => {
+    onPMor24BtnClick()
+})
+
+
+
+function onPMor24BtnClick(){
     if (PMor24H === "PM"){
-        event.target.innerText = "24H"
+        PMor24HBtn.innerText = "24H"
         digitalClock.innerText= `${hour} : ${minute} : ${second}`;    
         return;
     } else {
@@ -47,23 +55,10 @@ PMor24HBtn.addEventListener(('click'), (event) => {
         } else {
             digitalClock.innerText = `12 : ${minute} : ${second}`
         }
-        event.target.innerText = "PM";
+        PMor24HBtn.innerText = "PM";
     }
-})
-
-// 60s , 3600s , 43200s
-function rotate(hand, time) {
-    if (time === 'hour') {
-        let numerator = 43200;
-    } else if (time ==='minute') {
-        let numerator = 3600;
-    } else if (time === 'second') {
-        let numerator = 60;
-    } else {
-        return
-    }
-    // hand.style.transform = `rotate()`
 }
+
 
 function callBack() {
 
@@ -82,6 +77,68 @@ function callBack() {
     monthSpan.innerText =  `${MONTH_NAME[month]},`;
     yearSpan.innerText = `${year}`;
 
+    workAnalogClock()
+    workDigitalClock()
+    onCalandar()
+
+}
+
+function onCalandar() {
+    let firstDate = new Date(now.setDate(now.getDate()-now.getDate()+1))
+    firstDay = firstDate.getDay();
+    
+    // 말일 
+    let lastDate;
+    if (month+1 ===1 || 
+        month+1 ===3 || 
+        month+1 ===5 || 
+        month+1 ===7 || 
+        month+1 ===8 || 
+        month+1 ===10 || 
+        month+1 ===12) {
+        lastDate = 31;
+    } else if (month+1 ===4 || 
+                month+1 ===6 || 
+                month+1 ===9 || 
+                month+1 ===11) {
+        lastDate= 30;
+    } else  {
+        if (year%4 !==0) {
+            lastDate=28;
+        } else {
+            lastDate=29;
+        }
+    }
+    
+    for (let i=1; i<=lastDate; i++) {
+        dateContainer[firstDay+i-1].innerText = i;
+    }
+    makeTodayRed()
+}
+
+function makeTodayRed () {
+    dateContainer[firstDay+date-1].style.color = "red";
+    
+}
+
+function workDigitalClock() {
+    PMor24H = PMor24HBtn.innerText;
+    if (PMor24H === "PM"){
+        digitalClock.innerText = (hour > 12 ? `${hour-12} : ${minute} : ${second}` : `${hour} : ${minute} : ${second}`);
+        if (hour > 12) {
+            digitalClock.innerText = `${hour-12} : ${minute} : ${second}`;
+        } else if (hour > 0 ){
+            digitalClock.innerText = `${hour} : ${minute} : ${second}`
+        } else {
+            digitalClock.innerText = `12 : ${minute} : ${second}`
+        }
+        // 3가지 케이스로 나누는 것이 잘한건 아닌거같군..!
+    } else {
+        digitalClock.innerText= `${hour} : ${minute} : ${second}`;   
+    }
+}
+
+function workAnalogClock() {
     const hourToSecond = parseInt(hour)*3600+parseInt(minute)*60+parseInt(second)
     const minuteToSecond = parseInt(minute)*60+parseInt(second)
     
@@ -102,30 +159,7 @@ function callBack() {
     analogSecond.style.msTransform     = `rotate(${360*second/60}deg)`;
     analogSecond.style.oTransform      = `rotate(${360*second/60}deg)`;
     analogSecond.style.transform       = `rotate(${360*second/60}deg)`;
-
-    // console.log(360*hourToSecond/43200);
-    // console.log(analogHour.style);
-
-    // digital - clock
-    PMor24H = PMor24HBtn.innerText;
-    if (PMor24H === "PM"){
-        digitalClock.innerText = (hour > 12 ? `${hour-12} : ${minute} : ${second}` : `${hour} : ${minute} : ${second}`);
-        if (hour > 12) {
-            digitalClock.innerText = `${hour-12} : ${minute} : ${second}`;
-        } else if (hour > 0 ){
-            digitalClock.innerText = `${hour} : ${minute} : ${second}`
-        } else {
-            digitalClock.innerText = `12 : ${minute} : ${second}`
-        }
-        // 3가지 케이스로 나누는 것이 잘한건 아닌거같군..!
-    } else {
-        digitalClock.innerText= `${hour} : ${minute} : ${second}`;   
-    }
-
-    
 }
-
-
 
 
 function addZero(num) {
