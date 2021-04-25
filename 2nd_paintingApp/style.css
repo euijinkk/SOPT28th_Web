@@ -1,0 +1,23 @@
+body {
+  background-color: skyblue;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+canvas {
+  background-color: lightgray;
+  /* width: 500px;
+  height: 500px; */
+  margin-bottom: 100px;
+}
+.color {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: black;
+}
