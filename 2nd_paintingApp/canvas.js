@@ -45,6 +45,8 @@ const colors = document.querySelector('.colorPicker');
 
 const weightContoller = document.querySelector('#weightController');
 
+const darkModeToggle = document.querySelector('.checkbox');
+
 canvas.width = "700";
 canvas.height = "700";
 
@@ -57,13 +59,10 @@ if (canvas) {
     canvas.addEventListener("mouseleave",() => (painting = false));
 }
 
-console.log(Array.from(colors.children));
-Array.from(colors.children).map(color => console.log(color.dataset.color));
 Array.from(colors.children).map(color => color.style.backgroundColor = color.dataset.color);
 
 
 colors.addEventListener('click', e => {
-    console.log(e.target.style.backgroundColor);
 
     ctx.strokeStyle=e.target.style.backgroundColor;
 })
@@ -71,6 +70,13 @@ colors.addEventListener('click', e => {
 weightContoller.addEventListener('input', (event) => {
     ctx.lineWidth = weightContoller.value;
 })
+const body = document.querySelector('body');
+darkModeToggle.addEventListener('click', ()=> {
+    console.log(darkModeToggle.checked);
+    darkModeToggle.checked ? body.style.backgroundPosition = "left" : body.style.backgroundPosition = "right";
+})
+
+
 
 
 function handleMouseMove(event) {
