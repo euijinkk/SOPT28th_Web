@@ -45,6 +45,7 @@ canvas {
   left: -300px;
   cursor: pointer;
   font-size: 35px;
+  color: black;
 }
 
 .rightBtn {
@@ -53,6 +54,7 @@ canvas {
   right: -300px;
   cursor: pointer;
   font-size: 35px;
+  color: black;
 }
 
 .plusBtn {

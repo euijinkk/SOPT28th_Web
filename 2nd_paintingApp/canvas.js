@@ -78,7 +78,10 @@ plusBtn.addEventListener('click', () => {
     newCanvas.setAttribute('class',`canvas canvas${num}`);
     newCanvas.width = "300";
     newCanvas.height = "300";
-    canvases.appendChild(newCanvas);
+    // .indexOf(currentPage)
+    console.log(Array.from(canvases.children));
+    console.log(Array.from(canvases.children).indexOf(currentPage));
+    currentPage.insertAfter(newCanvas);
     // 현재 페이지에 그려주도록
     ablePaintCurrentPage(newCanvas);
     num++;
@@ -86,6 +89,14 @@ plusBtn.addEventListener('click', () => {
     onCanvas(newCanvas);
     currentPage = newCanvas;
 })
+
+Object.prototype.insertAfter = function (newNode) {     
+    if (!!this.nextSibling) {
+      this.parentNode.insertBefore(newNode, this.nextSibling);
+    } else {
+      this.parentNode.appendChild(newNode);
+    }
+  };
 
 leftBtn.addEventListener('click', () => {
     currentPage.style.visibility = "hidden";
@@ -97,6 +108,7 @@ leftBtn.addEventListener('click', () => {
         }
     }
     currentPage.style.visibility = "visible";
+    ablePaintCurrentPage(currentPage);
 })
 
 rightBtn.addEventListener('click', () => {
@@ -109,6 +121,7 @@ rightBtn.addEventListener('click', () => {
         }
     }
     currentPage.style.visibility = "visible";
+    ablePaintCurrentPage(currentPage);
 })
 
 function ablePaintCurrentPage(canvas) {
@@ -145,6 +158,16 @@ function handleMouseMove(event) {
 
 const body = document.querySelector('body');
 darkModeToggle.addEventListener('click', ()=> {
-    console.log(darkModeToggle.checked);
+    // console.log(darkModeToggle.checked);
     darkModeToggle.checked ? body.style.backgroundPosition = "left" : body.style.backgroundPosition = "right";
+    console.log(window.getComputedStyle(leftBtn).color);
+    // window.getComputedStyle(leftBtn).color == "rgb(0, 0, 0)" ? leftBtn.style.color="white" : leftBtn.style.color="black";
+    // window.getComputedStyle(leftBtn).color == "rgb(0, 0, 0)" ? leftBtn.style.color="white" : leftBtn.style.color="black";
+    if (window.getComputedStyle(leftBtn).color == "rgb(0, 0, 0)") {
+        leftBtn.style.color="white"
+        rightBtn.style.color="white"
+    } else {
+        leftBtn.style.color="black"
+        rightBtn.style.color="black"
+    }
 })
