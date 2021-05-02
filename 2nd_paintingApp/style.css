@@ -23,15 +23,56 @@ body {
   margin: 20px 0;
 }
 
+.canvases {
+  position: relative;
+}
 canvas {
   background-color: lightgray;
   /* width: 500px;
   height: 500px; */
   margin-bottom: 100px;
+  /* width: 700px;
+  height: 700px; */
+
+  position: absolute;
+  top: 0px;
+  left: -150px;
+}
+
+.leftBtn {
+  position: absolute;
+  top: 150px;
+  left: -300px;
+  cursor: pointer;
+  font-size: 35px;
+}
+
+.rightBtn {
+  position: absolute;
+  top: 150px;
+  right: -300px;
+  cursor: pointer;
+  font-size: 35px;
+}
+
+.plusBtn {
+  margin-top: 320px;
+  margin-bottom: 20px;
+}
+
+.plusBtn > i {
+  /* background-color: green; */
+  font-size: 50px;
+  color: orange;
+  cursor: pointer;
 }
 
 .weight {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+}
+
+.weight > input {
+  cursor: pointer;
 }
 
 .color {
@@ -43,6 +84,13 @@ canvas {
   height: 40px;
   border-radius: 50%;
   background-color: black;
+  cursor: pointer;
+  transition: transform 300ms ease-out;
+  margin: 0 5px;
+}
+
+.color:hover {
+  transform: scale(1.3);
 }
 
 /* The switch - the box around the slider */

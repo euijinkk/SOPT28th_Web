@@ -37,47 +37,78 @@
 // drawArc();
 
 // 마우스로 그리기
-const canvas = document.querySelector("#canvas");
 
-const ctx = canvas.getContext("2d");
+const canvas = document.querySelector(".canvas");
+
 
 const colors = document.querySelector('.colorPicker');
 
-const weightContoller = document.querySelector('#weightController');
+const weightController = document.querySelector('#weightController');
 
 const darkModeToggle = document.querySelector('.checkbox');
 
-canvas.width = "700";
-canvas.height = "700";
+const plusBtn = document.querySelector('.plusBtn');
+
+const canvases = document.querySelector('.canvases');
+
+const leftBtn = document.querySelector('.leftBtn');
+const rightBtn = document.querySelector('.rightBtn');
+// leftBtn.style.visibility = "hidden";
+canvas.width = "300";
+canvas.height = "300";
 
 let painting = null;
+let ctx = canvas.getContext("2d");
+let currentPage = canvas;
+onCanvas(canvas);
 
-if (canvas) {
-    canvas.addEventListener("mousemove",handleMouseMove);
-    canvas.addEventListener("mousedown",() => (painting = true));
-    canvas.addEventListener("mouseup",() => (painting = false));
-    canvas.addEventListener("mouseleave",() => (painting = false));
+function onCanvas (canvas) {
+    
+    if (canvas) {
+        canvas.addEventListener("mousemove",handleMouseMove);
+        canvas.addEventListener("mousedown",() => (painting = true));
+        canvas.addEventListener("mouseup",() => (painting = false));
+        canvas.addEventListener("mouseleave",() => (painting = false));
+    }
 }
+
+let num = 1;
+plusBtn.addEventListener('click', () => {
+    const newCanvas = document.createElement('canvas');
+    newCanvas.setAttribute('class',`canvas canvas${num}`);
+    newCanvas.width = "300";
+    newCanvas.height = "300";
+    canvases.appendChild(newCanvas);
+    // 현재 페이지에 그려주도록
+    ablePaintCurrentPage(newCanvas);
+    num++;
+
+    onCanvas(newCanvas);
+    currentPage = newCanvas;
+})
+
+leftBtn.addEventListener('click', () => {
+    console.log(currentPage.className.slice(-1));
+    currentPage.style.visibility = "hidden";
+    
+})
+
+function ablePaintCurrentPage(canvas) {
+    ctx = canvas.getContext("2d");
+}
+
 
 Array.from(colors.children).map(color => color.style.backgroundColor = color.dataset.color);
 
 
 colors.addEventListener('click', e => {
-
+    console.log(e.target);
     ctx.strokeStyle=e.target.style.backgroundColor;
 })
 
-weightContoller.addEventListener('input', (event) => {
-    ctx.lineWidth = weightContoller.value;
+weightController.addEventListener('input', (event) => {
+    ctx.lineWidth = weightController.value;
 })
-const body = document.querySelector('body');
-darkModeToggle.addEventListener('click', ()=> {
-    console.log(darkModeToggle.checked);
-    darkModeToggle.checked ? body.style.backgroundPosition = "left" : body.style.backgroundPosition = "right";
-})
-
-
-
 
 function handleMouseMove(event) {
     const x=event.offsetX;
@@ -93,3 +124,9 @@ function handleMouseMove(event) {
     }
 
 }
+
+const body = document.querySelector('body');
+darkModeToggle.addEventListener('click', ()=> {
+    console.log(darkModeToggle.checked);
+    darkModeToggle.checked ? body.style.backgroundPosition = "left" : body.style.backgroundPosition = "right";
+})

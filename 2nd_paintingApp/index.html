@@ -7,20 +7,27 @@
     <title>Document</title>
     <script src="canvas.js" defer></script>
     <link rel="stylesheet" href="style.css">
-
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <label class="switch">
         <input type="checkbox" class="checkbox">
         <span class="slider round"></span>
       </label>
-    <canvas id="canvas"></canvas>
+    <div class="canvases">
+        <i class="fas fa-angle-double-left leftBtn"></i>
+        <i class="fas fa-angle-double-right rightBtn"></i>
+        <canvas class="canvas canvas0"></canvas>
+    </div>
+    <div class="plusBtn">
+        <i class="fas fa-plus-circle"></i>
+    </div>
     <div class="weight">
         <input type="range" id="weightController" min="0.1" max="5.0" step="0.1" />
     </div>
     <div class="paintAndSaveButtons">
         <span class="paintButton">
-
+               
         </span>
         <span class="saveButton">
 
