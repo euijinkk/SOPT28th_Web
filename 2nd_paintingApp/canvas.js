@@ -62,6 +62,9 @@ let ctx = canvas.getContext("2d");
 let currentPage = canvas;
 onCanvas(canvas);
 
+let selectedColor = ctx.strokeStyle;
+let selectedWeight = ctx.lineWidth;
+
 function onCanvas (canvas) {
     
     if (canvas) {
@@ -126,19 +129,23 @@ rightBtn.addEventListener('click', () => {
 
 function ablePaintCurrentPage(canvas) {
     ctx = canvas.getContext("2d");
+    ctx.lineWidth = selectedWeight;
+    ctx.strokeStyle = selectedColor;
 }
 
 
 Array.from(colors.children).map(color => color.style.backgroundColor = color.dataset.color);
 
-
+// console.log(ctx.strokeStyle)
 colors.addEventListener('click', e => {
-    console.log(e.target);
     ctx.strokeStyle=e.target.style.backgroundColor;
+    // 선택된 색을 기억하여, 새로운 canvas에서도 적용시키기 위해
+    selectedColor = e.target.style.backgroundColor;
 })
-
+// console.log(ctx.lineWidth); 
 weightController.addEventListener('input', (event) => {
     ctx.lineWidth = weightController.value;
+    selectedWeight = weightController.value;
 })
 
 function handleMouseMove(event) {
@@ -160,7 +167,6 @@ const body = document.querySelector('body');
 darkModeToggle.addEventListener('click', ()=> {
     // console.log(darkModeToggle.checked);
     darkModeToggle.checked ? body.style.backgroundPosition = "left" : body.style.backgroundPosition = "right";
-    console.log(window.getComputedStyle(leftBtn).color);
     // window.getComputedStyle(leftBtn).color == "rgb(0, 0, 0)" ? leftBtn.style.color="white" : leftBtn.style.color="black";
     // window.getComputedStyle(leftBtn).color == "rgb(0, 0, 0)" ? leftBtn.style.color="white" : leftBtn.style.color="black";
     if (window.getComputedStyle(leftBtn).color == "rgb(0, 0, 0)") {
