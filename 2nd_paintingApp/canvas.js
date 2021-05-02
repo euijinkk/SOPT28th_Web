@@ -88,9 +88,27 @@ plusBtn.addEventListener('click', () => {
 })
 
 leftBtn.addEventListener('click', () => {
-    console.log(currentPage.className.slice(-1));
     currentPage.style.visibility = "hidden";
-    
+    let canvasesChildren=Array.from(canvases.children)
+    for (let i=0; i<canvasesChildren.length; i++) {
+        if (currentPage == canvasesChildren[i]) {
+            canvasesChildren[i-1].tagName == "CANVAS" && (currentPage = canvasesChildren[i-1]);
+            break;
+        }
+    }
+    currentPage.style.visibility = "visible";
+})
+
+rightBtn.addEventListener('click', () => {
+    currentPage.style.visibility = "hidden";
+    let canvasesChildren=Array.from(canvases.children)
+    for (let i=0; i<canvasesChildren.length; i++) {
+        if (currentPage == canvasesChildren[i]) {
+            canvasesChildren[i+1] && canvasesChildren[i+1].tagName == "CANVAS" && (currentPage = canvasesChildren[i+1]);
+            break;
+        }
+    }
+    currentPage.style.visibility = "visible";
 })
 
 function ablePaintCurrentPage(canvas) {
