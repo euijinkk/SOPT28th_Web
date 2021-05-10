@@ -1,13 +1,25 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-const Card = ({ userData, setUserState }) => {
-    // const closeBtn = useRef();
+const Card = ({ userData, setUserState, repos }) => {
+    const reposContainer = useRef();
+    const repoModal = useRef();
+
     const closeCard = () => {
         console.log(setUserState);
         setUserState({});
     };
-    console.log(userData);
+    // 효율적인 모달 방법을 알고싶다..!
+    const popUpModal = () => {
+        repoModal.current.style.visibility = 'visible';
+        repoModal.current.classList.remove('hidden');
+        repoModal.current.classList.add('visible');
+    };
+    const hideModal = () => {
+        repoModal.current.style.visibility = 'hidden';
+        repoModal.current.classList.remove('visible');
+        repoModal.current.classList.add('hidden');
+    };
     return (
         userData && (
             <Container>
@@ -29,9 +41,31 @@ const Card = ({ userData, setUserState }) => {
                         <p className="box__text">Following</p>
                         <p className="box__num">{userData.following}</p>
                     </div>
-                    <div className="repos box">
+                    <div
+                        className="repos box"
+                        ref={reposContainer}
+                        onClick={popUpModal}
+                    >
                         <p className="box__text">Repos</p>
                         <p className="box__num">{userData.public_repos}</p>
+                    </div>
+                    <div className="repo--modal hidden" ref={repoModal}>
+                        <div className="overlay" onClick={hideModal}></div>
+                        <div className="modal__text">
+                            Click repository Links
+                            {repos.slice(0, 10).map((repo, index) => (
+                                <a
+                                    key={repo.id}
+                                    href={repo.html_url}
+                                    target="_blank"
+                                >
+                                    <tr>
+                                        <td>{index + 1} -&nbsp;</td>
+                                        <td> {repo.name}</td>
+                                    </tr>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </Container>
@@ -116,6 +150,7 @@ const Container = styled.section`
         justify-content: center;
 
         .box {
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -135,6 +170,53 @@ const Container = styled.section`
         }
         .repos {
             margin-right: 0px;
+        }
+    }
+    .hidden {
+        visibility: hidden;
+    }
+    .visible {
+        /* background-color: black; */
+        animation: popUp 300ms;
+        & > .overlay {
+            background-color: gray;
+            opacity: 0.7;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+        }
+        & > .modal__text {
+            background-color: skyblue;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 300px;
+            height: 250px;
+        }
+    }
+    @keyframes popUp {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .repo--modal {
+        position: fixed;
+        /* left: 10px; */
+        top: 30%;
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+
+        a {
+            font-size: 16px;
         }
     }
 `;
