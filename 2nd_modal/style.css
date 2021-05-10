@@ -56,7 +56,7 @@ body {
 }
 
 .visible {
-    animation: popUp 300ms;
+    animation: popUp 1000ms;
     visibility: visible;
 }
 
