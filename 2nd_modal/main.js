@@ -11,11 +11,13 @@ closeBtn.addEventListener('click', closeModal);
 function showModal() {
     modal.style.visibility = 'visible';
     modal.classList.remove('hidden');
+    modal.classList.add('visible');
 }
 
 function closeModal() {
     modal.style.visibility = 'hidden';
     modal.classList.add('hidden');
+    modal.classList.remove('visible');
 }
 
 // const showModal = () => {
