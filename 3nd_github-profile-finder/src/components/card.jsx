@@ -158,6 +158,10 @@ const Container = styled.section`
             margin-right: 4px;
             background-color: #231e39;
             color: white;
+            &:hover {
+                transform: scale(1.07);
+            }
+            transition: transform 300ms ease-in;
             // flex-basis:33%;
             width: 130px;
             padding: 10px;
@@ -201,10 +205,12 @@ const Container = styled.section`
     }
     @keyframes popUp {
         from {
-            opacity: 0;
+            opacity: 1;
+            transform: translateY(60%);
         }
         to {
             opacity: 1;
+            transform: translateY(0);
         }
     }
     .repo--modal {
