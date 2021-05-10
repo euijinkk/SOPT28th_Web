@@ -1,0 +1,88 @@
+button {
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+html,
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button--open {
+    position: absolute;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(
+        0deg,
+        rgba(34, 193, 195, 1) 0%,
+        rgba(253, 187, 45, 1) 100%
+    );
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+}
+
+.modal--bg {
+    /* visibility: hidden; */
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: gray;
+    /* text-align:center; */
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* top:50%; */
+    background-color: gray;
+}
+
+.hidden {
+    background-color: white;
+    visibility: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+}
+.modal {
+    background-color: white;
+    width: 250px;
+    height: 200px;
+    text-align: center;
+    border-radius: 10px;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(
+        0deg,
+        rgba(34, 193, 195, 1) 0%,
+        rgba(253, 187, 45, 1) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
+    position: relative;
+}
+.modal__text {
+    color: white;
+}
+
+.button--close {
+    background-color: transparent;
+    color: white;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
