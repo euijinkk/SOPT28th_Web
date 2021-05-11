@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-const Search = ({ onSearch }) => {
+const Search = ({ onSearch, userState, userList, setUserList }) => {
     const inputForm = useRef();
     const getId = (event) => {
         event.preventDefault();

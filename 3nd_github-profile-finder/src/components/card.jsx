@@ -53,18 +53,19 @@ const Card = ({ userData, setUserState, repos }) => {
                         <div className="overlay" onClick={hideModal}></div>
                         <div className="modal__text">
                             Click repository Links
-                            {repos.slice(0, 10).map((repo, index) => (
-                                <a
-                                    key={repo.id}
-                                    href={repo.html_url}
-                                    target="_blank"
-                                >
-                                    <tr>
-                                        <td>{index + 1} -&nbsp;</td>
-                                        <td> {repo.name}</td>
-                                    </tr>
-                                </a>
-                            ))}
+                            {repos &&
+                                repos.slice(0, 10).map((repo, index) => (
+                                    <a
+                                        key={repo.id}
+                                        href={repo.html_url}
+                                        target="_blank"
+                                    >
+                                        <tr>
+                                            <td>{index + 1} -&nbsp;</td>
+                                            <td> {repo.name}</td>
+                                        </tr>
+                                    </a>
+                                ))}
                         </div>
                     </div>
                 </div>
@@ -205,7 +206,7 @@ const Container = styled.section`
     }
     @keyframes popUp {
         from {
-            opacity: 1;
+            opacity: 0;
             transform: translateY(60%);
         }
         to {
