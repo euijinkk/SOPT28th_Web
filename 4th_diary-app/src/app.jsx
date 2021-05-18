@@ -1,5 +1,5 @@
 import styled, { ThemeProvider } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GlobalStyle from './components/common/globalstyle';
 import MainHeader from './components/common/MainHeader';
 import Main from './pages/Main';
@@ -8,6 +8,7 @@ import Diary from './pages/Diary';
 import Calendar from './components/common/Calendar';
 import Footer from './components/common/Footer';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import { getCardData } from './lib/api';
 
 const getCurrentDate = () => {
     const now = new Date();
@@ -33,7 +34,11 @@ function App() {
                 />
                 <Title />
                 <Switch>
-                    <Route exact path="/" component={Main} />
+                    <Route
+                        exact
+                        path="/"
+                        component={() => <Main year={year} month={month} />}
+                    />
                     <Route path="/diary/:id" component={Diary} />
                     <Route component={() => <div>Fage Not Found</div>} />
                 </Switch>
