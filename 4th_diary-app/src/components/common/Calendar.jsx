@@ -67,7 +67,7 @@ const Calendar = ({ year, month, setYear, setMonth }) => {
 
 const CalendarWrap = styled.div`
     .calendar {
-        width: 1200px;
+        width: 100%;
         height: 118px;
         display: flex;
         flex-direction: column;
@@ -100,7 +100,7 @@ const CalendarWrap = styled.div`
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            width: 1025px;
+            width: 90%;
 
             &--button {
                 font-size: 18px;

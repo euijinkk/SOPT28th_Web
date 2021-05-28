@@ -6,8 +6,15 @@ import { getCardData } from '../lib/api';
 
 const MainWrap = Styled.div`
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(5, 227px);
+  
+  /* grid-template-columns:repeat(auto-fill, 250px); */
+  column-gap: 25px;
   row-gap: 25px;
+  width:100%;
+  ${({ theme }) => theme.media.fiveCard`
+    grid-template-columns:repeat(auto-fill, 220px);
+  `}
 `;
 
 const Main = ({ year, month }) => {
