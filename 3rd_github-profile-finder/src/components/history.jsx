@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { userData } from '../state';
 
-const History = ({ userState, setUserState }) => {
+const History = () => {
+    const [userState, setUserState] = useRecoilState(userData);
     const [userList, setUserList] = useState(0);
-    console.log(userState);
 
     useEffect(() => {
         localStorage.setItem([userState.data.login], JSON.stringify(userState));
-        // setUserList([...userList, userState.data.login]);
-
-        setUserList((userList) => userList + 1);
-        console.log(userState.data.login);
-        console.log(userList);
     }, [userState]);
 
-    // setUserList([userState.data]);
-
     const onHistoryClick = (e) => {
-        // console.log(e.target.innerText);
         setUserState(JSON.parse(localStorage[e.target.innerText]));
     };
 
@@ -32,10 +26,6 @@ const History = ({ userState, setUserState }) => {
 
         localStorage.removeItem(historyDiv.innerText);
         setUserList((userList) => userList + 1);
-        // setUserList((userList) =>
-        //     userList.filter((item) => item !== historyDiv.innerText)
-        // );
-        // console.log(userList);
     };
 
     // (e.target.parentNode.parentNode.tag ==="DIV" ? e.target.parentNode.parentNode )

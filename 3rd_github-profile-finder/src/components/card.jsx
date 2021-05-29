@@ -1,15 +1,17 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { userData } from '../state';
 
-const Card = ({ userData, setUserState, repos }) => {
+const Card = () => {
+    const [userState, setUserState] = useRecoilState(userData);
+    const { data, repos } = userState; // 구조분해할당을 통해 status와 data를 따로 가져옵니다
     const reposContainer = useRef();
     const repoModal = useRef();
 
     const closeCard = () => {
-        console.log(setUserState);
         setUserState({});
     };
-    // 효율적인 모달 방법을 알고싶다..!
     const popUpModal = () => {
         repoModal.current.style.visibility = 'visible';
         repoModal.current.classList.remove('hidden');
@@ -21,25 +23,25 @@ const Card = ({ userData, setUserState, repos }) => {
         repoModal.current.classList.add('hidden');
     };
     return (
-        userData && (
+        data && (
             <Container>
                 <button className="closeBtn" onClick={closeCard}>
                     X
                 </button>
-                <img src={userData.avatar_url} alt="" />
-                <p className="login">{userData.login}</p>
-                <p className="bio">{userData.bio}</p>
-                <a className="link" href={userData.html_url} target="_blank">
+                <img src={data.avatar_url} alt="" />
+                <p className="login">{data.login}</p>
+                <p className="bio">{data.bio}</p>
+                <a className="link" href={data.html_url} target="_blank">
                     Visit GitHub
                 </a>
                 <div className="metaData">
                     <div className="followers box">
                         <p className="box__text">Followers</p>
-                        <p className="box__num">{userData.followers}</p>
+                        <p className="box__num">{data.followers}</p>
                     </div>
                     <div className="following box">
                         <p className="box__text">Following</p>
-                        <p className="box__num">{userData.following}</p>
+                        <p className="box__num">{data.following}</p>
                     </div>
                     <div
                         className="repos box"
@@ -47,7 +49,7 @@ const Card = ({ userData, setUserState, repos }) => {
                         onClick={popUpModal}
                     >
                         <p className="box__text">Repos</p>
-                        <p className="box__num">{userData.public_repos}</p>
+                        <p className="box__num">{data.public_repos}</p>
                     </div>
                     <div className="repo--modal hidden" ref={repoModal}>
                         <div className="overlay" onClick={hideModal}></div>
