@@ -15,3 +15,16 @@ export const getCardData = async () => {
         return null;
     }
 };
+
+export const createCardData = async (userData) => {
+    try {
+        const data = await instance.post('/posts', {
+            data: userData,
+        });
+        console.log('[SUCCESS] POST card data');
+        return data.data.data;
+    } catch (e) {
+        console.log('[FAIL] POST card data');
+        return null;
+    }
+};

@@ -78,13 +78,13 @@ const getDateFormat = (date) => {
     return `${year}월 ${day}일`;
 };
 
-const Card = ({ props }) => {
+const Card = ({ props, onClickFunc }) => {
     const { date, title, image, weather, tags } = props;
     // console.log(typeof Array.from(tags));
     console.log(tags.map((tag) => console.log(tag)));
     return (
         <CardWrap>
-            <div className="card">
+            <div className="card" onClick={onClickFunc}>
                 <div className="card__image">
                     {image ? (
                         <img
