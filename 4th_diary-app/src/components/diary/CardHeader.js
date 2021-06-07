@@ -54,7 +54,6 @@ const CardHeader = ({ title, handleChange, handleDelete, history, id, handleEdit
     setIsRead(false);
     history.push(`/diary/edit/${id}`);
     setIsRead(false);
-  
   }
   React.useEffect(()=> {
     console.log(isRead);
@@ -67,7 +66,7 @@ const CardHeader = ({ title, handleChange, handleDelete, history, id, handleEdit
                 name="title"
                 placeholder="제목을 입력해 주세요"
                 value={title}
-                readOnly={isReadOnly}
+                readOnly={isRead}
                 onChange={handleChange}
             />
             <div className="header__empty"></div>
