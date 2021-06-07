@@ -81,7 +81,6 @@ const getDateFormat = (date) => {
 const Card = ({ props, onClickFunc }) => {
     const { date, title, image, weather, tags } = props;
     // console.log(typeof Array.from(tags));
-    console.log(tags.map((tag) => console.log(tag)));
     return (
         <CardWrap>
             <div className="card" onClick={onClickFunc}>
@@ -104,7 +103,7 @@ const Card = ({ props, onClickFunc }) => {
                     <div className="card__top--date">{getDateFormat(date)}</div>
                     <div className="card__top--weather">{weather}</div>
                 </div>
-                <div className="card__title">{title ? title : '제목 없음'}</div>
+                <div className="card__title">{title || '제목없음'}</div>
                 <div className="card__tags">
                     {tags &&
                         tags.map((tag, index) => (

@@ -1,5 +1,8 @@
-import React from "react";
-import Styled from "styled-components";
+import React from 'react';
+import { withRouter } from 'react-router';
+import Styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { isReadOnly } from '../../state';
 
 const CardHeaderWrap = Styled.div`
   display: flex;
@@ -45,23 +48,50 @@ const CardHeaderWrap = Styled.div`
   }
 `;
 
-const CardHeader = ({ title, isReadOnly, handleChange }) => {
-  return (
-    <CardHeaderWrap>
-      <input
-        type="text"
-        className="header__title"
-        name="title"
-        placeholder="제목을 입력해 주세요"
-        value={title}
-        readOnly={isReadOnly}
-        onChange={handleChange}
-      />
-      <div className="header__empty"></div>
-      <button className="header__edit">수정</button>
-      <button className="header__delete">삭제</button>
-    </CardHeaderWrap>
-  );
+const CardHeader = ({ title, handleChange, handleDelete, history, id, handleEdit }) => {
+  const [isRead, setIsRead] = useRecoilState(isReadOnly);
+  const onEdit = () => {
+    setIsRead(false);
+    history.push(`/diary/edit/${id}`);
+    setIsRead(false);
+  
+  }
+  React.useEffect(()=> {
+    console.log(isRead);
+  })
+    return (
+        <CardHeaderWrap>
+            <input
+                type="text"
+                className="header__title"
+                name="title"
+                placeholder="제목을 입력해 주세요"
+                value={title}
+                readOnly={isReadOnly}
+                onChange={handleChange}
+            />
+            <div className="header__empty"></div>
+            {isRead ? (
+                <button
+                    className="header__edit"
+                    onClick={onEdit}
+                >
+                    수정
+                </button>
+            ) : (
+                <button className="header__edit" onClick={handleEdit}>
+                    완료
+                </button>
+            )}
+            {isRead ? (
+                <button className="header__delete" onClick={handleDelete}>
+                    삭제
+                </button>
+            ) : (
+                ''
+            )}
+        </CardHeaderWrap>
+    );
 };
 
-export default CardHeader;
+export default withRouter(CardHeader);

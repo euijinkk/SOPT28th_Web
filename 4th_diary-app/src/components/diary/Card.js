@@ -3,6 +3,9 @@ import Styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import CardHeader from './CardHeader';
 import CardInfo from './CardInfo';
+import { createCardData } from '../../lib/api';
+import { useRecoilState } from 'recoil';
+import { isReadOnly } from '../../state';
 
 const CardWrap = Styled.div`
   width: 785px;
@@ -33,11 +36,26 @@ const CardWrap = Styled.div`
   }
 `;
 
-const Card = ({ data, match }) => {
-    const isReadOnly = match.path === '/diary/:id' ? true : false;
-    const { title, date, image, weather, tags, summary, text } = data;
+const Card = ({
+    data,
+    match,
+    rawData,
+    setRawData,
+    year,
+    month,
+    history,
+    id,
+    setUserData
+}) => {
+    // const isReadOnly = match.path === '/diary/:id' ? true : false;
+    const [isRead, setIsRead] = useRecoilState(isReadOnly);
     const [state, setState] = React.useState(data);
-
+    // React.useEffect(setIsReadOnly(true), []);
+    // React.useEffect(() => {match.path === 'diary/edit/:id' ? setIsRead(false) : setIsRead(true)});
+    // React.useEffect(()=>{
+    //   console.log(isReadOnly);
+    // }, [isReadOnly]);
+  console.log(setUserData);
     const handleChange = (event) => {
         const name = event.target.name;
         setState({
@@ -45,22 +63,48 @@ const Card = ({ data, match }) => {
             [name]: event.target.value,
         });
     };
+    id = parseInt(match.params.id); // 현재 카드의 index 번호
+
+    const handleEdit = async () => {
+        const index = rawData[year][month].findIndex((data) => data.id === id);
+        rawData[year][month][index] = state; 
+        const data2 = await createCardData(rawData); 
+        setRawData(data2);
+        console.log(data2);
+        console.log(setUserData);
+        data2[year] && setUserData(data2[year][month]);
+        history.goBack(); 
+        setIsRead(true);
+    };
+
+    const handleDelete = async () => {
+        const filteredList = rawData[year][month].filter(
+            (data) => data.id !== id
+        );
+        rawData[year][month] = filteredList;
+        const data2 = await createCardData(rawData);
+        setRawData(data2);
+        console.log(setUserData);
+        data2[year] && setUserData(data2[year][month]);
+        history.goBack();
+    };
 
     return (
         <CardWrap>
             <CardHeader
                 title={state.title}
-                isReadOnly={isReadOnly}
                 handleChange={handleChange}
+                handleDelete={handleDelete}
+                id={id}
+                handleEdit={handleEdit}
             />
             <CardInfo
                 data={state}
-                isReadOnly={isReadOnly}
                 handleChange={handleChange}
             />
             <textarea
                 placeholder="오늘을 기록해 주세요"
-                readOnly={isReadOnly}
+                readOnly={isRead}
                 value={state.text}
                 name="text"
                 onChange={handleChange}

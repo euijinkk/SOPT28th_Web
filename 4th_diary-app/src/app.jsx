@@ -8,6 +8,8 @@ import Diary from './pages/Diary';
 import Calendar from './components/common/Calendar';
 import Footer from './components/common/Footer';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { getCardData } from './lib/api';
 // import { getCardData } from './lib/api';
 
 const getCurrentDate = () => {
@@ -21,6 +23,16 @@ const getCurrentDate = () => {
 function App() {
     const [year, setYear] = useState(getCurrentDate().year);
     const [month, setMonth] = useState(getCurrentDate().month);
+    const [rawData, setRawData] = React.useState(null);
+    const [userData, setUserData] = React.useState(null);
+
+    React.useEffect(() => {
+        (async () => {
+            const data = await getCardData();
+            setRawData(data);
+            data[year] && setUserData(data[year][month]);
+        })();
+    }, [year, month]);
 
     return (
         <>
@@ -37,17 +49,44 @@ function App() {
                     <Route
                         exact
                         path="/"
-                        component={() => <Main year={year} month={month} />}
+                        component={() => (
+                            <Main
+                                year={year}
+                                month={month}
+                                rawData={rawData}
+                                setRawData={setRawData}
+                                userData={userData}
+                                setUserData={setUserData}
+                            />
+                        )}
                     />
                     <Route
                         exact
                         path="/diary/:id"
-                        component={() => <Diary year={year} month={month} />}
+                        component={() => (
+                            <Diary
+                                year={year}
+                                month={month}
+                                rawData={rawData}
+                                setRawData={setRawData}
+                                userData={userData}
+                                setUserData={setUserData}
+                            />
+                        )}
                     />
                     <Route
                         exact
                         path="/diary/edit/:id"
-                        component={() => <Diary year={year} month={month} />}
+                        component={() => (
+                            <Diary
+                                year={year}
+                                month={month}
+                                rawData={rawData}
+                                setRawData={setRawData}
+                                userData={userData}
+                                setUserData={setUserData}
+                            />
+                        )}
                     />
                     <Route component={() => <div>Fage Not Found</div>} />
                 </Switch>

@@ -19,18 +19,15 @@ const MainWrap = Styled.div`
   `}
 `;
 
-const Main = ({ year, month, history }) => {
-    const [userData, setUserData] = React.useState(null);
-    const [rawData, setRawData] = React.useState(null);
-
-    React.useEffect(() => {
-        (async () => {
-            const data = await getCardData();
-            setRawData(data);
-            data[year] && setUserData(data[year][month]);
-        })();
-    }, [year, month]);
-
+const Main = ({
+    year,
+    month,
+    history,
+    rawData,
+    setRawData,
+    userData,
+    setUserData,
+}) => {
     return (
         <MainWrap>
             {userData &&

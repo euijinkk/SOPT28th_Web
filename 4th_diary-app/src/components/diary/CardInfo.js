@@ -155,7 +155,7 @@ const CardInfo = ({ data, isReadOnly, handleChange }) => {
         )}
         <div className="info__tags">
           <span>태그</span>
-          {tags.length > 0 ? (
+          {tags&& tags.length > 0 ? (
             tags.map((tag, index) => {
               return (
                 <div key={index} className="info__tags--tag">
@@ -166,7 +166,7 @@ const CardInfo = ({ data, isReadOnly, handleChange }) => {
           ) : (
             <input
               type="text"
-              readOnly={true}
+              readOnly={isReadOnly}
               value=""
               placeholder="태그를 선택해주세요"
             />
