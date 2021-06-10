@@ -30,18 +30,14 @@ body {
 }
 
 .modal--bg {
-    /* visibility: hidden; */
     position: absolute;
     height: 100%;
     width: 100%;
     background-color: gray;
-    /* text-align:center; */
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* top:50%; */
-    /* animation: popUp 3000ms; */
 }
 
 @keyframes popUp {
@@ -63,8 +59,6 @@ body {
 .hidden {
     background-color: white;
     visibility: hidden;
-    /* animation: popUp 3000ms; */
-    /* animation: scaleBack 0.1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; */
 }
 /* @keyframes scaleBack {
     0% {

@@ -42,62 +42,9 @@
       ],
       "2021": [
         [],
-        [
-          {
-            "id": 1,
-            "date": 20210528,
-            "title": "",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          },
-          {
-            "id": 2,
-            "date": 20210529,
-            "title": "",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          }
-        ],
-        [
-          {
-            "id": 1,
-            "date": 20210529,
-            "title": "",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          },
-          {
-            "id": 2,
-            "date": 20210529,
-            "title": "",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          }
-        ],
-        [
-          {
-            "id": 1,
-            "date": 20210528,
-            "title": "",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          }
-        ],
+        [],
+        [],
+        [],
         [
           {
             "id": 1,
@@ -168,62 +115,22 @@
           {
             "id": 1,
             "date": 20210607,
-            "title": "111111",
+            "title": "김의진",
             "image": "",
-            "weather": "",
+            "weather": "구름",
             "tags": [],
-            "summary": "",
-            "text": ""
+            "summary": "ㄴㅇㄴㅇ",
+            "text": "ㅍㅇㄹㅇㄴ"
           },
           {
             "id": 2,
-            "date": 20210607,
-            "title": "222222",
+            "date": 20210610,
+            "title": "",
             "image": "",
             "weather": "",
             "tags": [],
             "summary": "",
             "text": ""
-          },
-          {
-            "id": 3,
-            "date": 20210607,
-            "title": "3333333",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          },
-          {
-            "id": 4,
-            "date": 20210607,
-            "title": "444444",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          },
-          {
-            "id": 5,
-            "date": 20210607,
-            "title": "123123",
-            "image": "",
-            "weather": "",
-            "tags": [],
-            "summary": "",
-            "text": ""
-          },
-          {
-            "id": 6,
-            "date": 20210607,
-            "title": "ㅇㄴㅇㄴㅇ",
-            "image": "",
-            "weather": "맑음",
-            "tags": [],
-            "summary": "ㄴㅇㄴㅇ",
-            "text": "ㄴㅇㄴㅇㄴㅇsd"
           }
         ],
         [],

@@ -4,10 +4,13 @@ import leftOff from '../../assets/leftOff.svg';
 import rightOff from '../../assets/rightOff.svg';
 import leftOn from '../../assets/leftOn.svg';
 import rightOn from '../../assets/rightOn.svg';
+import { useLocation } from 'react-router';
 
 const Calendar = ({ year, month, setYear, setMonth }) => {
     const leftButton = useRef();
     const rightButton = useRef();
+    const location = useLocation();
+    const isMain = location.pathname === '/' ? true : false;
     const monthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     return (
         <CalendarWrap>
@@ -17,10 +20,14 @@ const Calendar = ({ year, month, setYear, setMonth }) => {
                         src={leftOff}
                         alt=""
                         className="calendar__year--left"
-                        onClick={() => setYear(year - 1)}
+                        onClick={() => isMain && setYear(year - 1)}
                         ref={leftButton}
-                        onMouseEnter={() => (leftButton.current.src = leftOn)}
-                        onMouseLeave={() => (leftButton.current.src = leftOff)}
+                        onMouseEnter={() =>
+                            isMain && (leftButton.current.src = leftOn)
+                        }
+                        onMouseLeave={() =>
+                            isMain && (leftButton.current.src = leftOff)
+                        }
                     />
                     <div className="calendar__year--title">{year}년</div>
 
@@ -28,11 +35,13 @@ const Calendar = ({ year, month, setYear, setMonth }) => {
                         src={rightOff}
                         alt=""
                         className="calendar__year--right"
-                        onClick={() => setYear(year + 1)}
+                        onClick={() => isMain && setYear(year + 1)}
                         ref={rightButton}
-                        onMouseEnter={() => (rightButton.current.src = rightOn)}
+                        onMouseEnter={() =>
+                            isMain && (rightButton.current.src = rightOn)
+                        }
                         onMouseLeave={() =>
-                            (rightButton.current.src = rightOff)
+                            isMain && (rightButton.current.src = rightOff)
                         } //
                     />
                 </div>
@@ -42,7 +51,7 @@ const Calendar = ({ year, month, setYear, setMonth }) => {
                             <div
                                 key={month2}
                                 className="calendar__month--button"
-                                onClick={() => setMonth(month2)}
+                                onClick={() => isMain && setMonth(month2)}
                                 style={
                                     month2 === month
                                         ? {

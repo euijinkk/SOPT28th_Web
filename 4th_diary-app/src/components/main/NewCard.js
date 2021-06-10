@@ -47,7 +47,7 @@ const NewCard = ({ id, year, month, rawData, setUserData }) => {
     };
     rawData[year][month].push(cardForm);
     const data = await createCardData(rawData);
-    data[year] && setUserData(data[year][month]);
+    data && data[year] && setUserData(data[year][month]);
   };
 
   return (

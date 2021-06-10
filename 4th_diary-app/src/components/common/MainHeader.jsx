@@ -17,8 +17,7 @@ const MainHeaderWrap = styled.div`
             font-size: 36px;
             font-weight: bold;
             font-style: italic;
-            /* color: #cea0e3;*/
-            color: black;
+            color: #cea0e3;
             &:hover {
                 cursor: pointer;
             }

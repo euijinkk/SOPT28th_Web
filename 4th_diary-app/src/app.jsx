@@ -30,7 +30,7 @@ function App() {
         (async () => {
             const data = await getCardData();
             setRawData(data);
-            data[year] && setUserData(data[year][month]);
+            data && data[year] && setUserData(data[year][month]);
         })();
     }, [year, month]);
 
