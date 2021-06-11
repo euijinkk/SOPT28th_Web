@@ -53,7 +53,6 @@ const CardHeader = ({ title, handleChange, handleDelete, history, id, handleEdit
   const onEdit = () => {
     setIsRead(false);
     history.push(`/diary/edit/${id}`);
-    setIsRead(false);
   }
   React.useEffect(()=> {
     console.log(isRead);

@@ -81,6 +81,8 @@ const getDateFormat = (date) => {
 const Card = ({ props, onClickFunc }) => {
     const { date, title, image, weather, tags } = props;
     // console.log(typeof Array.from(tags));
+
+    console.log(tags);
     return (
         <CardWrap>
             <div className="card" onClick={onClickFunc}>

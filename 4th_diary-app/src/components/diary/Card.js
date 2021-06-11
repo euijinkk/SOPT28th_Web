@@ -43,9 +43,9 @@ const Card = ({
     setRawData,
     year,
     month,
+    setUserData,
     history,
     id,
-    setUserData
 }) => {
     // const isReadOnly = match.path === '/diary/:id' ? true : false;
     const [isRead, setIsRead] = useRecoilState(isReadOnly);
@@ -55,7 +55,6 @@ const Card = ({
     // React.useEffect(()=>{
     //   console.log(isReadOnly);
     // }, [isReadOnly]);
-  console.log(setUserData);
     const handleChange = (event) => {
         const name = event.target.name;
         setState({
@@ -67,13 +66,11 @@ const Card = ({
 
     const handleEdit = async () => {
         const index = rawData[year][month].findIndex((data) => data.id === id);
-        rawData[year][month][index] = state; 
-        const data2 = await createCardData(rawData); 
+        rawData[year][month][index] = state;
+        const data2 = await createCardData(rawData);
         setRawData(data2);
-        console.log(data2);
-        console.log(setUserData);
         data2[year] && setUserData(data2[year][month]);
-        history.goBack(); 
+        history.goBack();
         setIsRead(true);
     };
 
@@ -101,6 +98,12 @@ const Card = ({
             <CardInfo
                 data={state}
                 handleChange={handleChange}
+                id={id}
+                setRawData={setRawData}
+                year={year}
+                month={month}
+                setUserData={setUserData}
+                rawData={rawData}
             />
             <textarea
                 placeholder="오늘을 기록해 주세요"
