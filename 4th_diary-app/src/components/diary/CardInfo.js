@@ -48,11 +48,24 @@ const CardInfo = ({
         setNewTags(tags.concat(a));
         const b = tags.concat(a);
         rawData[year][month][id - 1].tags = b;
-        console.log(rawData[year][month][id - 1].tags);
-        console.log(newTags);
         const data2 = await createCardData(rawData);
         data2 && data2[year] && setUserData(data2[year][month]);
         setHashtags([]);
+    };
+
+    const handleDelete = async (event) => {
+        const tagElement = event.target.parentNode;
+        const tagValue = tagElement.innerText
+            .slice(0, tagElement.innerText.length - 1)
+            .trim();
+        const idx = newTags.indexOf(tagValue);
+        console.log(idx);
+        console.log(newTags);
+        newTags.splice(idx, 1);
+        console.log(newTags);
+        rawData[year][month][id - 1].tags = newTags;
+        const data2 = await createCardData(rawData);
+        data2 && data2[year] && setUserData(data2[year][month]);
     };
 
     // const focusInputRef = () => {
@@ -60,13 +73,12 @@ const CardInfo = ({
     //   inputRef.current.focus();
     // }
 
-    
     React.useEffect(() => {
         console.log(hashtags);
     });
 
     return (
-        <CardInfoWrap>
+        <CardInfoWrap isRead={isRead}>
             <div className="info__photo">
                 <img
                     src={image ? image : EmptyImage}
@@ -138,12 +150,20 @@ const CardInfo = ({
                         <div className="tagContainer">
                             {newTags &&
                                 newTags.map((hashtag, index) => (
-                                    <span
-                                        className="info__tags--tag"
-                                        key={index}
-                                    >
-                                        {hashtag}
-                                    </span>
+                                    <>
+                                        <span
+                                            className="info__tags--tag"
+                                            key={index}
+                                        >
+                                            {hashtag}
+                                            <span
+                                                className="deleteTagBtn"
+                                                onClick={handleDelete}
+                                            >
+                                                X
+                                            </span>
+                                        </span>
+                                    </>
                                 ))}
                             <form onSubmit={(event) => handleSubmit(event)}>
                                 <input
@@ -241,6 +261,7 @@ font-size: 18px;
       color: white;
       background-color: #CEA0E3;
       padding: 4px 11px;
+      padding-right: ${({ isRead }) => !isRead && '25px'};
       margin-right: 7px;
       margin-bottom:7px;
       border-radius: 5px;
@@ -249,6 +270,17 @@ font-size: 18px;
       overflow: hidden;
       text-overflow: ellipsis;
       width: auto;
+    position:relative;
+
+    }
+    .deleteTagBtn {
+      position:absolute;
+      right:3px;
+      top:4px;
+      width:max-content;
+      display:inline-block;
+      padding:0px;
+      cursor:pointer;
     }
   }
   &__summary {
