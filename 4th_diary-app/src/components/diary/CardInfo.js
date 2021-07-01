@@ -7,7 +7,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import Select from '../../assets/Select.svg';
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { isReadOnly, tagState } from '../../state';
+import { isReadOnly, tagState, userImgState } from '../../state';
 import { createCardData } from '../../lib/api';
 
 const getDateFormat = (date) => {
@@ -33,6 +33,8 @@ const CardInfo = ({
     const [hashtags, setHashtags] = useRecoilState(tagState);
     const inputRef = useRef(null);
     const [newTags, setNewTags] = useState(tags);
+    const [userImg, setUserImg] = useRecoilState(userImgState);
+
     // useResetRecoilState(hashtags);
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -67,7 +69,22 @@ const CardInfo = ({
         const data2 = await createCardData(rawData);
         data2 && data2[year] && setUserData(data2[year][month]);
     };
-
+    const handleChangeFile = (event) => {
+      let reader = new FileReader();
+      const data = event.target.files[0]; // 받아온 이미지는 여기에 File 객체로 저장됩니다
+  
+      if (data) {
+        reader.readAsDataURL(data);
+      }
+      reader.onloadend = () => {
+        setUserImg({
+          file: data,
+          preview: reader.result,
+        });
+        // 미리보기 이미지 변경을 위한 state
+        // setState({ ...state, image: reader.result});
+      };
+    };
     // const focusInputRef = () => {
     //   console.log(inputRef.current)
     //   inputRef.current.focus();
@@ -80,12 +97,21 @@ const CardInfo = ({
     return (
         <CardInfoWrap isRead={isRead}>
             <div className="info__photo">
-                <img
-                    src={image ? image : EmptyImage}
-                    width={image && '210px'}
-                    height={image && '210px'}
-                    alt=""
-                />
+            {isReadOnly ? (
+            <img
+              src={image ? image : EmptyImage}
+              width={image && "210px"}
+              height={image && "210px"}
+              alt=""
+            />
+          ) : (
+            <input
+              type="file"
+              name="ImageUpload"
+              accept="image/*"
+              onChange={handleChangeFile}
+            />
+          )}
             </div>
             <div className="info__data-wrap">
                 <p className="info__date">

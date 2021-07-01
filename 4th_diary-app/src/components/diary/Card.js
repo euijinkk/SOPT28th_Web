@@ -55,13 +55,13 @@ const Card = ({
     // React.useEffect(()=>{
     //   console.log(isReadOnly);
     // }, [isReadOnly]);
-    const handleChange = (event) => {
+   const handleChange = (event) => {
         const name = event.target.name;
         setState({
             ...state,
             [name]: event.target.value,
         });
-    };
+    }; 
     id = parseInt(match.params.id); // 현재 카드의 index 번호
 
     const handleEdit = async () => {

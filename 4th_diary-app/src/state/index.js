@@ -9,3 +9,8 @@ export const tagState = atom({
     key: "tagState",
     default:[],
 })
+
+export const userImgState = atom({
+    key: "userImgState",
+    default: null,
+})
