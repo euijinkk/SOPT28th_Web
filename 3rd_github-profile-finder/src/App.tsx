@@ -17,8 +17,6 @@ function App(): ReactElement {
         try {
             const data: IUserData | null = await getUserData(name);
             const repos = await getUserRepos(name);
-            console.log(data);
-            console.log(repos);
             if (data === null) throw Error;
             setUserState({ status: 'resolved', data: data, repos: repos });
         } catch (e) {
